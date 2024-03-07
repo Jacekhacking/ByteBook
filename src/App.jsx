@@ -10,19 +10,19 @@ import { getBooks } from './resources';
 
 function App() {
   const [title, setTitle] = useState('Please select a book!');
-  const [details, setDetails] = useState(
-    'Welcome to ByteBook. A virtual library designed to provide support to beginner software developers'
-  );
+  const [details, setDetails] = useState({
+    body: 'Welcome to ByteBook. A virtual library designed to provide support to beginner software developers',
+  });
 
   const changePage = (e) => {
     e.preventDefault();
     const book = getBooks(e.target.title);
-    setDetails(book.body);
+    setDetails(book);
     setTitle(book.title);
   };
 
   return (
-    <div className="flex flex-col  items-center justify-start gap-10 bg-gray-700 h-dvh text-white">
+    <div className="flex flex-col  items-center justify-start gap-10 bg-gray-700 min-h-screen text-white">
       <div className=" py-5 flex items-center flex-col justify-between gap-10 ">
         <h1 className=" text-5xl  max-w-52 text-center" title="home">
           ByteBook
@@ -37,7 +37,7 @@ function App() {
         <Book title="book5" src={book5} changePage={changePage} />
       </div>
 
-      <Description body={details} />
+      <Description book={details} />
     </div>
   );
 }
